@@ -1,18 +1,28 @@
-import React from 'react';
-import { StyleSheet, Text, View,Button } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-type RootStackParamList = {Home: undefined;Second: undefined;};
+type RootStackParamList = { Home: undefined; Second: { message: string } };
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 export default function HomeScreen({ navigation }: Props) {
+  const [name, setName] = useState(''); 
+
   return (
     <View style={styles.container}>
-      <Text style={styles.texto}>AAAAAAAAAAAAAAAA!</Text>
+      <Text style={styles.texto}>Insira seu nome:</Text>
+      <TextInput
+        style={styles.input}
+        value={name}
+        onChangeText={setName}
+        placeholder="Digite seu nome"
+      />
       <Button
-        title="Ir para a segunda tela"
-        onPress={() => navigation.navigate('Second')}
-      />    
+        title="Enviar nome para segunda tela"
+        onPress={() =>
+          navigation.navigate('Second', { message: `Olá, ${name || 'visitante'}!` })
+        }
+      />
     </View>
   );
 }
@@ -26,12 +36,20 @@ const styles = StyleSheet.create({
   },
   botao: {
     marginTop: 20,
-    backgroundColor: '#841584',
+    backgroundColor: '#c90000ff',
     padding: 10,
     borderRadius: 5,
   },
   texto: {
     fontSize: 20,
     marginBottom: 16,
+  },
+  input: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    width: '80%',
+    paddingHorizontal: 10,
+    marginBottom: 20,
   },
 });

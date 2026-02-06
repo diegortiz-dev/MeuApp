@@ -7,7 +7,7 @@ import ThirdScreen from './src/screens/ThirdScreen';
 // ADICIONAR este tipo (define as rotas do app):
 type RootStackParamList = {
   Home: undefined;
-  Second: undefined;
+  Second: { name: string; message: string };
   Third: undefined;
 };
 
